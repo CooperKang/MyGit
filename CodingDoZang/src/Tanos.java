@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+// 타노스가 핑거스냅을 하면 인구의 절반이 사라진다.
+// 무작위 숫자를 생성하고, 그중에 무작위로 절반을 삭제하는 프로그램이다.
 public class Tanos {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

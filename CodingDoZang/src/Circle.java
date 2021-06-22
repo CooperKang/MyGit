@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// 숫자 대입했을 때 원이 만들어져요
 public class Circle {
 	public static void main(String[] args) {
 		System.out.println("숫자 대입했을 때 원 만들기");

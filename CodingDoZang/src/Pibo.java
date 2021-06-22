@@ -5,7 +5,9 @@ import java.util.Arrays;
 //0, 1, 1, 2, 3, 5, 8....
 //위와 같이 출력하는 문장을 만들어주세요
 import java.util.Scanner;
-
+//피보나치 수열을 계산해주는 프로그램이다.
+//피보나치 수열이란 첫번째 숫자와 두번째 숫자를 더해 세번째 숫자를 구하는 형식으로
+// a, b, a+b=c , b+c=d, c+d=e .....이런식으로 계산된다.
 public class Pibo {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);

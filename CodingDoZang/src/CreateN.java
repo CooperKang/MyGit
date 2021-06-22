@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+//숫자를 입력하면 X*X만큼의 공간이 생기고 그 공간에 꽉차는 N이 생성된다.
 public class CreateN {
 	public static void main(String[] args) {
 		System.out.println("숫자 대입했을 때 N만들기");

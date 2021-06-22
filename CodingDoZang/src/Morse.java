@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-//단어자르기
+// 단어를 입력하면 모스부호가 출력되는 프로그램
 public class Morse {
 
 	public static void main(String[] args) {

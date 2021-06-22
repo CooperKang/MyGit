@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+//배열을 사용해 로또프로그램을 만들어 보았으며 현존하는 로또 시스템에 맞게 코드를 구상하였음.
 public class Lotto {
 	public static void main(String[] args) {
 		

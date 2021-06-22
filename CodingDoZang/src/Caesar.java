@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+// 아스키 코드표를 활용한 시저암호 만들기
+// 시저 암호 -> sleep을 입력했을 경우 밀어내고자 하는 횟수만큼 단어가 바뀜
+// sleep -> +3 밀어내기 -> [v, o, h, h, s]
 public class Caesar {
 
 	public static void main(String[] args) {
