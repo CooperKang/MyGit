@@ -1,12 +1,3 @@
-package score;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.table.*;
-
 class ScoreFrame extends JFrame implements ActionListener, MouseListener {
 	ScoreDAO scoreDAO;//만들고 왔습니다.
 	ScoreDTO scoreDTO;//만들고 
@@ -270,5 +261,188 @@ class ScoreFrame extends JFrame implements ActionListener, MouseListener {
 public class Score{
 	public static void main(String[] args) {
 		new ScoreFrame();
+	}
+}
+
+//ScoreDAO
+public class ScoreDAO {
+	public Connection getConn() {
+		Connection conn = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			String url = "jdbc:mariadb://localhost:3306/ramg";
+			conn = DriverManager.getConnection(url,"root", "990212");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return conn;
+	}//getConn()
+	//데이터 불러오기 getScore()
+	public Vector getScore() {
+		Vector data = new Vector();
+		Connection conn = getConn();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql ="select * from score order by name asc";
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				Vector row = new Vector<>();
+				row.add(rs.getString("name"));
+				row.add(rs.getInt("kor"));
+				row.add(rs.getInt("eng"));
+				row.add(rs.getInt("mat"));
+				row.add(rs.getInt("tot"));
+				row.add(rs.getDouble("avg"));
+				
+				data.add(row);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {rs.close();}
+				if(rs != null) {stmt.close();}
+				if(rs != null) {conn.close();}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return data;
+	}
+	//데이터 저장하기 insertScore()
+	public int insertScore(ScoreDTO dto) {
+		Connection conn = getConn();
+		PreparedStatement pstmt = null;
+		String sql="insert into score values(?,?,?,?,?,?)";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getKor());
+			pstmt.setInt(3, dto.getEng());
+			pstmt.setInt(4, dto.getMat());
+			pstmt.setInt(5, dto.getTot());
+			pstmt.setDouble(6, dto.getAvg());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) {pstmt.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return result;
+	}
+	//데이터 수정하기 updateScore()
+	public int updateScore(ScoreDTO dto) {
+		Connection conn = getConn();
+		PreparedStatement pstmt = null;
+		String sql = "update score set kor=?, eng=?, mat=?, tot=?, avg=? where name=? ";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getKor());
+			pstmt.setInt(2, dto.getEng());
+			pstmt.setInt(3, dto.getMat());
+			pstmt.setInt(4, dto.getTot());
+			pstmt.setDouble(5, dto.getAvg());
+			pstmt.setString(6, dto.getName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) {pstmt.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	//데이터 삭제하기 deleteScore()
+	public int deleteScore(ScoreDTO dto) {
+		Connection conn = getConn();
+		PreparedStatement pstmt = null;
+		String sql ="delete from score where name=?";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) {pstmt.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+}
+//ScoreDTO
+public class ScoreDTO {
+	private int kor, eng, mat, tot;
+	private double avg;
+	private String name;
+	public int getKor() {
+		return kor;
+	}
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	public int getMat() {
+		return mat;
+	}
+	public void setMat(int mat) {
+		this.mat = mat;
+	}
+	public int getTot() {
+		return tot;
+	}
+	public void setTot(int tot) {
+		this.tot = tot;
+	}
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }
